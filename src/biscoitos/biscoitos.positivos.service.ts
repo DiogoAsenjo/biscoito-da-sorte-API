@@ -32,4 +32,8 @@ export class BiscoitosPositivosService {
     adicionarMensagemDoBem(mensagem: string): void {
         frasesPositivas.push(mensagem);
     }
+
+    deletarFraseDoBem(indice: number) : void {
+        frasesPositivas.splice(indice, 1);
+    }
 }

@@ -32,4 +32,8 @@ export class BiscoitosNegativosService {
     adicionarMensagemDoMal(mensagem: string): void {
         frasesNegativas.push(mensagem);
     }
+
+    deletarFraseDoMal(indice: number) : void {
+        frasesNegativas.splice(indice, 1);
+    }
 }
