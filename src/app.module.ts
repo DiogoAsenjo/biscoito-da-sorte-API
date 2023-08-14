@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { BiscoitosModule } from './biscoitos/biscoitos.module';
 
-
 @Module({
   imports: [BiscoitosModule],
   controllers: [],
-  providers: []
+  providers: [],
 })
 export class AppModule {}

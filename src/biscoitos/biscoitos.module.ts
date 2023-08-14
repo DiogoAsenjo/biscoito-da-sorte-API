@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { BiscoitosController } from './biscoitos.controller';
-import { BiscoitosService } from './biscoitos.service';
+import { BiscoitosPositivosService } from './biscoitos.positivos.service';
+import { BiscoitosNegativosService } from './biscoitos.negativos.service';
 
 @Module({
   controllers: [BiscoitosController],
-  providers: [BiscoitosService]
+  providers: [BiscoitosPositivosService, BiscoitosNegativosService]
 })
 export class BiscoitosModule {}
