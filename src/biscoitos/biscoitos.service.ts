@@ -28,13 +28,18 @@ const frasesNegativas: Array<string> = [
 
 @Injectable()
 export class BiscoitosService {
-    pegarBiscoitoDoBem():string {
+    pegarBiscoitoDoBem(): string {
         const mensagem = frasesPositivas[Math.floor(Math.random() * frasesPositivas.length)];
         return mensagem;
     }
 
-    pegarBiscoitoDoMal():string {
+    pegarBiscoitoDoMal(): string {
         const mensagem = frasesNegativas[Math.floor(Math.random() * frasesNegativas.length)];
         return mensagem;
+    }
+
+    adicionarMensagemDoBem(mensagem: string): Array<string> {
+        frasesPositivas.push(mensagem);
+        return frasesPositivas;
     }
 }
