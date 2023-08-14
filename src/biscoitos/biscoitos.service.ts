@@ -42,4 +42,9 @@ export class BiscoitosService {
         frasesPositivas.push(mensagem);
         return frasesPositivas;
     }
+
+    adicionarMensagemDoMal(mensagem: string): Array<string> {
+        frasesNegativas.push(mensagem);
+        return frasesNegativas;
+    }
 }

@@ -22,5 +22,11 @@ export class BiscoitosController {
         const novoArrayPositivo = this.biscoito.adicionarMensagemDoBem(frasePositiva);
         res.send(novoArrayPositivo);
     }
-}
 
+    @Post('adicionar-negativo')
+    adicionarMensagemNegativa(@Res() res: Response, @Body() body: { mensagem: string }): void {
+        const fraseNegativa = body.mensagem;
+        const novoArrayNegativo = this.biscoito.adicionarMensagemDoMal(fraseNegativa);
+        res.send(novoArrayNegativo);
+    }
+}
