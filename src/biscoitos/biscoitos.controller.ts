@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res, Delete, HttpStatus, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, Delete, HttpStatus, Patch, Param } from '@nestjs/common';
 import { BiscoitosPositivosService } from './biscoitos.positivos.service';
 import { Response } from 'express'
 import { BiscoitosNegativosService } from './biscoitos.negativos.service';
@@ -80,10 +80,17 @@ export class BiscoitosController {
         res.send('Sua frase foi adicionada, para confirmar acesse: listar-negativos');
     }
 
-    @Delete('deletar-negativo')
+   /*  @Delete('deletar-negativo')
     deletarMensagemNegativa(@Res() res: Response, @Body() body: { numero: number }) : void {
         const numeroFrase = body.numero;
         this.biscoitoNegativo.deletarFraseDoMal(numeroFrase);
+        //res.send(`A frase ${numeroFrase} foi excluída, para confirmar acesse: listar-negativos`);
+        res.status(HttpStatus.NO_CONTENT).send('A frase foi excluída com sucesso');
+    } */
+
+    @Delete('deletar-negativo/:id')
+    deletarMensagemNegativa(@Res() res: Response, @Param('id') id: number) : void {
+        this.biscoitoNegativo.deletarFraseDoMal(id);
         //res.send(`A frase ${numeroFrase} foi excluída, para confirmar acesse: listar-negativos`);
         res.status(HttpStatus.NO_CONTENT).send('A frase foi excluída com sucesso');
     }
