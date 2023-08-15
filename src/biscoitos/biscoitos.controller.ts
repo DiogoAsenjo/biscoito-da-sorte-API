@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res, Delete, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, Delete, HttpStatus, Patch } from '@nestjs/common';
 import { BiscoitosPositivosService } from './biscoitos.positivos.service';
 import { Response } from 'express'
 import { BiscoitosNegativosService } from './biscoitos.negativos.service';
@@ -20,36 +20,47 @@ export class BiscoitosController {
             <li>GET listar-positivos</li>
             <li>POST adicionar-positivo</li>
             <li>DELETE deletar-positivo</li>
+            <li>PATCH alterar-positivo</li>
             <li>GET negativos</li>
             <li>GET listar-negativos</li>
             <li>POST adicionar-negativo</li>
             <li>DELETE deletar-negativo</li>
+            <li>PATCH alterar-negativo</li>
         </ul>
     </body>`
     }
 
     @Get('positivo')
-    imprimeMensagemPositiva(): string {
-        return this.biscoitoPositivo.pegarBiscoitoDoBem();
+    imprimeMensagemPositiva(@Res() res: Response): void {
+        const mensagemPositiva = this.biscoitoPositivo.pegarBiscoitoDoBem();
+        res.status(HttpStatus.OK).send(mensagemPositiva)
     }
 
     @Get('listar-positivos')
-    imprimePositivas(): Array<string> {
-        return this.biscoitoPositivo.listarPositivos();
+    imprimePositivas(@Res() res: Response): void {
+        res.status(HttpStatus.OK).send(this.biscoitoPositivo.listarPositivos());
     }
 
     @Post('adicionar-positivo')
     adicionarMensagemPositiva(@Res() res: Response, @Body() body: { mensagem: string }): void {
         const frasePositiva = body.mensagem;
         this.biscoitoPositivo.adicionarMensagemDoBem(frasePositiva);
-        res.send('Sua frase foi adicionada, para confirmar acesse: listar-positivos');
+        res.status(HttpStatus.CREATED).send('Sua frase foi adicionada, para confirmar acesse: listar-positivos');
     }
 
     @Delete('deletar-positivo')
     deletarMensagemPositiva(@Res() res: Response, @Body() body: { numero: number }) : void {
         const numeroFrase = body.numero;
         this.biscoitoPositivo.deletarFraseDoBem(numeroFrase);
-        res.send(`A frase ${numeroFrase} foi excluída, para confirmar acesse: listar-positivos`);
+        res.status(HttpStatus.NO_CONTENT).send(`A frase ${numeroFrase} foi excluída, para confirmar acesse: listar-positivos`);
+    }
+
+    @Patch('alterar-positivo')
+    alterarMensagemPositiva(@Res() res: Response, @Body() body: { numero: number, mensagem: string }): void {
+        const numeroFrase = body.numero;
+        const novaFrase = body.mensagem;
+        this.biscoitoPositivo.alterandoFraseDoBem(numeroFrase, novaFrase);
+        res/* .status(HttpStatus.NO_CONTENT) */.send(`A frase ${numeroFrase} foi atualizada, para confirmar acesse: listar-positivos`);
     }
 
     @Get('negativo')
@@ -74,6 +85,14 @@ export class BiscoitosController {
         const numeroFrase = body.numero;
         this.biscoitoNegativo.deletarFraseDoMal(numeroFrase);
         //res.send(`A frase ${numeroFrase} foi excluída, para confirmar acesse: listar-negativos`);
-        res.status(201).send('A frase foi excluída com sucesso');
+        res.status(HttpStatus.NO_CONTENT).send('A frase foi excluída com sucesso');
+    }
+
+    @Patch('alterar-negativo')
+    alterarMensagemNegativa(@Res() res: Response, @Body() body: { numero: number, mensagem: string }): void {
+        const numeroFrase = body.numero;
+        const novaFrase = body.mensagem;
+        this.biscoitoNegativo.alterandoFraseDoMal(numeroFrase, novaFrase);
+        res/* .status(HttpStatus.NO_CONTENT) */.send(`A frase ${numeroFrase} foi atualizada, para confirmar acesse: listar-negativos`);
     }
 }

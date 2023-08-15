@@ -23,8 +23,8 @@ export class BiscoitosPositivosService {
 
     listarPositivos(): Array<string> {
         const listaPositiva: Array<string> = []
-        frasesPositivas.forEach((frase, index) => {
-            listaPositiva.push(`${index} - ${frase}`)
+        frasesPositivas.forEach((frase, indice) => {
+            listaPositiva.push(`${indice} - ${frase}`)
         })  
         return listaPositiva;
     }
@@ -33,7 +33,11 @@ export class BiscoitosPositivosService {
         frasesPositivas.push(mensagem);
     }
 
-    deletarFraseDoBem(indice: number) : void {
+    deletarFraseDoBem(indice: number): void {
         frasesPositivas.splice(indice, 1);
+    }
+    
+    alterandoFraseDoBem(indice: number, frase: string): void {
+        frasesPositivas.splice(indice, 1, frase);
     }
 }

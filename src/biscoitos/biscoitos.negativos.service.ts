@@ -36,4 +36,8 @@ export class BiscoitosNegativosService {
     deletarFraseDoMal(indice: number) : void {
         frasesNegativas.splice(indice, 1);
     }
+
+    alterandoFraseDoMal(indice: number, frase: string): void {
+        frasesNegativas.splice(indice, 1, frase);
+    }
 }
