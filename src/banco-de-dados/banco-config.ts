@@ -3,15 +3,24 @@ import { Sequelize } from 'sequelize-typescript';
 export const databaseProviders = [
   {
     provide: 'SEQUELIZE',
-    useFactory: () => {
-      return new Sequelize({
+    useFactory: async () => {
+      const sequelize = new Sequelize({
         dialect: 'postgres',
         host: 'localhost',
         port: 5432, // A porta padrão do PostgreSQL
-        username: 'usuario',
+        username: 'postgres',
         password: '123456',
         database: 'frases',
       });
+
+      try {
+        await sequelize.authenticate();
+        console.log('Conexão com o banco de dados estabelecida com sucesso.');
+      } catch (error) {
+        console.error('Erro ao conectar ao banco de dados:', error);
+      }
+
+      return sequelize;
     },
   },
 ];
