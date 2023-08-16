@@ -10,7 +10,7 @@ export const databaseProviders = [
         port: 5432, // A porta padrão do PostgreSQL
         username: 'postgres',
         password: '123456',
-        database: 'frases',
+        database: 'postgres',
       });
 
       try {
