@@ -1,4 +1,9 @@
 import { Module } from '@nestjs/common';
+import { databaseProviders } from './banco.config';
 
-@Module({})
+@Module({
+    controllers: [],
+    providers: [...databaseProviders],
+    exports: [...databaseProviders]
+})
 export class BancoDeDadosModule {}
