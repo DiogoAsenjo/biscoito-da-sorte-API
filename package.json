@@ -28,7 +28,8 @@
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.32.1",
+    "sequelize-typescript": "^2.1.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
