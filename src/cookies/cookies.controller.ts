@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Patch, Post, Res } from '@nestjs/common';
 import { Cookies } from './cookie.entity';
 import { Response } from 'express';
 import { CookiesService } from './cookies.service';
@@ -14,7 +14,7 @@ export class CookiesController {
     
 
     //CREATE
-    @Post('novo-cookie')
+    @Post('adicionar')
     async adicionarCookiePositivo(@Res() res: Response, @Body() body: { mensagem: string }): Promise<void> {
         const frasePositiva= body.mensagem;
         await Cookies.create({frase: frasePositiva});
@@ -22,7 +22,7 @@ export class CookiesController {
     }
 
     //READ
-    @Get('mostrar-cookie')
+    @Get('mostrar-todos')
     async mostraMensagens(@Res() res: Response): Promise<void> {
         try {
             const cookies = await Cookies.findAll();
@@ -38,5 +38,19 @@ export class CookiesController {
     async mostraMensagemAleatorio(@Res() res: Response): Promise<void> {
         const fraseAleatoria = await this.cookiesService.cookieAleatorio();
         res.status(HttpStatus.OK).send(fraseAleatoria);
+    }
+    
+    //UPDATE
+    @Patch('alterar')
+    async alterarCookie(@Res() res: Response, @Body() body: { id: number, mensagem: string }): Promise<void> {
+        try {
+            const numeroFrase = body.id
+            const novaMensagem = body.mensagem;
+            await this.cookiesService.atualizarCookie(numeroFrase, novaMensagem);
+            res.status(HttpStatus.NO_CONTENT).send('Atualização feita com sucesso');
+        } catch(erro) {
+            console.log(erro);
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(erro);
+        }
     }
 }
