@@ -4,7 +4,7 @@ import { BancoDeDadosModule } from './banco-de-dados/banco-de-dados.module';
 import { CookiesModule } from './cookies/cookies.module';
 
 @Module({
-  imports: [BiscoitosModule, BancoDeDadosModule, CookiesModule],
+  imports: [BiscoitosModule, BancoDeDadosModule],
   controllers: [],
   providers: [],
 })
