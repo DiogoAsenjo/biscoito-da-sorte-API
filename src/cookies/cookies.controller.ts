@@ -1,9 +1,11 @@
 import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { Cookies } from './cookie.entity';
 import { Response } from 'express';
+import { CookiesService } from './cookies.service';
 
 @Controller('cookies')
 export class CookiesController {
+    constructor (private readonly cookiesService: CookiesService) {}
 
     @Get()
     paginaInicial(): string {
@@ -21,7 +23,7 @@ export class CookiesController {
 
     //READ
     @Get('mostrar-cookie')
-    async mostraMensagem(@Res() res: Response): Promise<void> {
+    async mostraMensagens(@Res() res: Response): Promise<void> {
         try {
             const cookies = await Cookies.findAll();
             const frasesCookies = cookies.map((item) => item.frase);
@@ -32,5 +34,9 @@ export class CookiesController {
         }
     }
 
-
+    @Get('aleatorio')
+    async mostraMensagemAleatorio(@Res() res: Response): Promise<void> {
+        const fraseAleatoria = await this.cookiesService.cookieAleatorio();
+        res.status(HttpStatus.OK).send(fraseAleatoria);
+    }
 }
