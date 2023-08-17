@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
+import { Biscoitos } from 'src/biscoitos/biscoitos.model';
 import { Cookie } from 'src/cookies/cookie.entity';
 
 export const databaseProviders = [
@@ -13,7 +14,7 @@ export const databaseProviders = [
         password: '123456',
         database: 'postgres',
       });
-      sequelize.addModels([Cookie])
+      sequelize.addModels([Cookie, Biscoitos])
       await sequelize.sync();
 
       try {

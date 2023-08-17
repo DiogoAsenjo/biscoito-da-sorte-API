@@ -1,7 +1,7 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
 
 @Table
-export class Biscoito extends Model {
+export class Biscoitos extends Model {
 /*   @Column({
     type: DataType.NUMBER,
     primaryKey: true,

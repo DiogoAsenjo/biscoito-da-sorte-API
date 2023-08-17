@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Res, Delete, HttpStatus, Patch, Param } fr
 import { BiscoitosPositivosService } from './biscoitos.positivos.service';
 import { Response } from 'express'
 import { BiscoitosNegativosService } from './biscoitos.negativos.service';
+import { Biscoitos } from './biscoitos.model';
 
 @Controller('biscoitos')
 export class BiscoitosController {
@@ -41,12 +42,21 @@ export class BiscoitosController {
         res.status(HttpStatus.OK).send(this.biscoitoPositivo.listarPositivos());
     }
 
+    //Adicionando direto no banco.
     @Post('adicionar-positivo')
+    adicionarMensagemPositiva(@Res() res: Response, @Body() body: { mensagem: string }): void {
+        const frasePositiva = body.mensagem;
+        Biscoitos.create({frase: frasePositiva});
+        this.biscoitoPositivo.adicionarMensagemDoBem(frasePositiva);
+        res.status(HttpStatus.CREATED).send('Sua frase foi adicionada, para confirmar acesse: listar-positivos');
+    }
+    
+    /* @Post('adicionar-positivo')
     adicionarMensagemPositiva(@Res() res: Response, @Body() body: { mensagem: string }): void {
         const frasePositiva = body.mensagem;
         this.biscoitoPositivo.adicionarMensagemDoBem(frasePositiva);
         res.status(HttpStatus.CREATED).send('Sua frase foi adicionada, para confirmar acesse: listar-positivos');
-    }
+    } */
 
     @Delete('deletar-positivo')
     deletarMensagemPositiva(@Res() res: Response, @Body() body: { numero: number }) : void {
