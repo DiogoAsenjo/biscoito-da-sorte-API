@@ -1,14 +1,20 @@
 # API Rest dos biscoitos da sorte (e do azar).
 
+## Objetivo
+
+API REST feita durante o processo de formação em Node.js da ModalGR. Visava atingir os objetivos do Desafio 02:
+
+- Criar e exportar módulos
+- Realizar chamadas HTTP
+- Processamento assíncrono
+
 ## Tecnologias utilizadas:
 
 - NestJS
 - Express
 - TypeScript
-
-## Objetivo
-
-Feito como parte do processo de formação em NodeJS da ModalGR para treinar os conceitos de requisições HTTP.
+- Sequelize
+- PostgreSQL
 
 ## Como foi feito
 

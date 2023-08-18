@@ -9,7 +9,7 @@ import { BiscoitosPositivosService } from './biscoitos/biscoitos.positivos.servi
 import { CookiesService } from './cookies/cookies.service';
 
 @Module({
-  imports: [BiscoitosModule, BancoDeDadosModule],
+  imports: [BiscoitosModule, BancoDeDadosModule, CookiesModule],
   controllers: [BiscoitosController, CookiesController],
   providers: [BiscoitosNegativosService, BiscoitosPositivosService, CookiesService],
 })

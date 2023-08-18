@@ -52,11 +52,13 @@ export class CookiesController {
             const numeroFrase = body.id;
             const novaMensagem = body.mensagem;
             await this.cookiesService.atualizarCookie(numeroFrase, novaMensagem);
-            res.status(HttpStatus.NO_CONTENT).send('Atualização feita com sucesso');
+            //Esse status http está ok? Ou deveria ser o 204 (NO CONTENT)
+            res.status(HttpStatus.OK).send('Atualização feita com sucesso');
         } catch(erro) {
             console.log(erro);
             //throw new NotFoundException('Cookie não encontrado!');
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(erro);
+            //Está certo enviar a mensagem de erro desse jeito? \/ Vi o modo de cima online, não não entendi muito bem. 
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send("Esse cookie não existe!");
         }
     }
 
@@ -66,10 +68,10 @@ export class CookiesController {
         try {
             const numeroFrase = body.id;
             await this.cookiesService.excluirCookie(numeroFrase);
-            res.status(HttpStatus.NO_CONTENT).send('Cookie deletado!')
+            res.status(HttpStatus.OK).send('Cookie deletado!')
         } catch(erro) {
             console.log(erro);
-            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(erro);
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send("Esse cookie não existe!");
         }
     }
 }

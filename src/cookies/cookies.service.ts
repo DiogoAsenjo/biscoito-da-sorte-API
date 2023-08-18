@@ -30,6 +30,7 @@ export class CookiesService {
             throw new Error ('Cookie não encontrado!')
         } else {
             await cookieExiste.destroy();
+            //Apesar dele deletar a linha do id, quando eu crio um novo ele parte do item que foi excluído. Exemplo, eu dou destroy() no cookie do id 7, quando eu for criar um novo, o id dele será 8. 
             
         } 
     }
