@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Cookies } from './cookie.entity';
 import { Sequelize } from 'sequelize';
 
@@ -12,13 +12,25 @@ export class CookiesService {
         return mensagem;
     }
 
+    //Melhorar o tratamento de erros.
     async atualizarCookie(id: number, novoCookie: string): Promise<any> {
         const cookieExiste = await Cookies.findByPk(id);
         if(!cookieExiste) {
             throw new Error ('Cookie não encontrado!')
+            //throw new NotFoundException('Cookie não encontrado!');
         } else {
             cookieExiste.frase = novoCookie;
             await cookieExiste.save();
         }
+    }
+
+    async excluirCookie(id: number): Promise<any> {
+        const cookieExiste = await Cookies.findByPk(id);
+        if(!cookieExiste) {
+            throw new Error ('Cookie não encontrado!')
+        } else {
+            await cookieExiste.destroy();
+            
+        } 
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Patch, Post, Res } from '@nestjs/common';
 import { Cookies } from './cookie.entity';
 import { Response } from 'express';
 import { CookiesService } from './cookies.service';
@@ -26,7 +26,12 @@ export class CookiesController {
     async mostraMensagens(@Res() res: Response): Promise<void> {
         try {
             const cookies = await Cookies.findAll();
-            const frasesCookies = cookies.map((item) => item.frase);
+            const frasesCookies = cookies.map((item) => {
+                return {
+                    id: item.id,
+                    frase: item.frase
+                }
+            });
             res.status(HttpStatus.OK).send(frasesCookies);
         } catch(erro) {
             console.log(erro);
@@ -44,10 +49,24 @@ export class CookiesController {
     @Patch('alterar')
     async alterarCookie(@Res() res: Response, @Body() body: { id: number, mensagem: string }): Promise<void> {
         try {
-            const numeroFrase = body.id
+            const numeroFrase = body.id;
             const novaMensagem = body.mensagem;
             await this.cookiesService.atualizarCookie(numeroFrase, novaMensagem);
             res.status(HttpStatus.NO_CONTENT).send('Atualização feita com sucesso');
+        } catch(erro) {
+            console.log(erro);
+            //throw new NotFoundException('Cookie não encontrado!');
+            res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(erro);
+        }
+    }
+
+    //DELETE
+    @Delete('deletar')
+    async deletarCookie(@Res() res: Response, @Body() body: { id: number }) {
+        try {
+            const numeroFrase = body.id;
+            await this.cookiesService.excluirCookie(numeroFrase);
+            res.status(HttpStatus.NO_CONTENT).send('Cookie deletado!')
         } catch(erro) {
             console.log(erro);
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(erro);
