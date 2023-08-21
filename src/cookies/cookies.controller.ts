@@ -56,8 +56,6 @@ export class CookiesController {
             res.status(HttpStatus.OK).send('Atualização feita com sucesso');
         } catch(erro) {
             console.log(erro);
-            //throw new NotFoundException('Cookie não encontrado!');
-            //Está certo enviar a mensagem de erro desse jeito? \/ Vi o modo de cima online, não não entendi muito bem. 
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send("Esse cookie não existe!");
         }
     }
