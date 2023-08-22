@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Patch, Post, Res } from '@nestjs/common';
 import { Cookies } from './cookie.entity';
 import { Response } from 'express';
 import { CookiesService } from './cookies.service';
