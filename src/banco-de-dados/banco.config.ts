@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Cookies } from 'src/cookies/cookie.entity';
+import pg from 'pg';
 
 export const databaseProviders = [
   {
@@ -7,11 +8,17 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: 'localhost',
+        host: process.env.HOST, //'localhost',
         port: 5432, // A porta padrão do PostgreSQL
-        username: 'postgres',
-        password: '123456',
+        username: process.env.USER, //'postgres',
+        password: process.env.PASSWORD, //'123456',
         database: 'postgres',
+        dialectModule: pg, //Necessário para o deploy na Vercel
+        dialectOptions: { //Necessário para usar o servidor Postgre no Azure 
+            ssl: { 
+                require: true
+            }
+        }
       });
       sequelize.addModels([Cookies])
       await sequelize.sync();
