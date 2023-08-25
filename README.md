@@ -56,4 +56,4 @@ A rota principal é a:
   Deleta um cookie com base no ID fornecido.
   No corpo da requisição é necessário um JSON com a chave id do cookie que será deletado.
 
-Dessa forma, feita todas essas rotas consegui criar uma API Rest que possui os principais métodos HTTP e consegue executar todos os comandos básicos de um CRUD.
+Dessa forma, feita todas essas rotas consegui criar uma API Rest que possui os principais métodos HTTP e consegue executar todos os comandos básicos de um CRUD e contém um tratamento de erros.
