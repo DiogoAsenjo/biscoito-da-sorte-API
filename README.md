@@ -1,4 +1,4 @@
-# API Rest dos biscoitos da sorte (e do azar).
+# API Rest dos biscoitos da sorte.
 
 ## Objetivo
 
@@ -18,22 +18,42 @@ API REST feita durante o processo de formação em Node.js da ModalGR. Visava at
 
 ## Como foi feito
 
-### Primeira versão (Biscoitos)
+Visando atingir um pouco mais do que os requisitos/objetivos resolvi fazer o desafio em NestJS (e TypeScript) e conectar o projeto a um Banco de Dados (PostgreSQL) usando uma ORM (Sequelize).
 
-Como estou utilizando o NestJS, aproveitei sua arquitetura de modules, controllers e service para construir a primeira versão da aplicação, da pasta "biscoitos" que usa apenas memória local, com um array de strings.
+Seguindo o padrão de arquitetura do NestJS, crei o module dos Cookies junto com o seu controller (que irá organizar as rotas) e o service (que irá implementar as regras do negócio).
 
-Nela, além do Module principal criei o Service tanto dos biscoitos positivos, quanto dos negativos.
+Consegui subir a API no Vercel e o Banco de Dados está funcionando online no Azure.
 
-Apesar do Desafio pedir apenas o retorno de uma mensagem de biscoito da sorte aleatória, resolvi criar métodos adicionais em cada tipo de biscoito, através das requisições HTTP, é possível buscar um biscoito aleatório, listar todos os biscoitos, adicionar uma novamensagem, deletar uma mensagem e ainda alterar a mensagem, ou seja, um CRUD.
+Com esse projeto pude treinar um pouco o meu tratamento de erros e os conceitos de funções sícronas e assíncronas.
 
-### Segunda versão (Cookies)
+### Como rodar o projeto e rotas disponíveis:
 
-Visando aprimorar o projeto sem desperdicar o que já havia sido feito. Resolvi conectar o projeto a um Banco de Dados (PostgreSQL) usando uma ORM (Sequelize).
+Para rodar o projeto e receber mensagens motivadoras aleatórias basta acessar o link:
+[Biscoitos da sorte](https://desafio02-biscoito-da-sorte-diogoasenjo.vercel.app/cookies/aleatorio).
 
-Feito isso, criei o Module de Cookies, que faz a mesma coisa da primeira versão, mas com outro nome e conectado a um banco de dados.
+Porém também existem outras rotas que podem ser testadas utilizando o Postman, Insomnia ou outro serviço similar.
 
-Assim, pude treinar os conceitos de funções assíncronas e tratamento de erros.
+A rota principal é a:
 
-### Geral
+- GET https://desafio02-biscoito-da-sorte-diogoasenjo.vercel.app/cookies
+  Irá mostrar todas as demais rotas da API, bastando adicionar o /"nome-da-rota" na continuação da rota principal, sendo elas:
 
-No projeto, além das ferramentas, também pude testar todos os principais tipos de requisições HTTP (GET, POST, PATCH, DELETE).
+- GET /cookies/mostrar-todos
+  Retorna todas as mensagens e id dos cookies existentes.
+
+- GET /cookies/aleatorio
+  Retorna uma mensagem de cookie aleatória.
+
+- POST /cookies/adicionar
+  Adiciona um novo cookie com uma mensagem positiva.
+  No corpo da requisição é necessário um JSON com a chave mensagem contendo uma mensagem.
+
+- PATCH /cookies/alterar
+  Atualiza a mensagem de um cookie existente com base no ID fornecido.
+  No corpo da requisição é necessário um JSON com a chave id do cookie que será atualizado e a chave mensagem com a mensagem que substituíra a antiga.
+
+- DELETE /cookies/deletar
+  Deleta um cookie com base no ID fornecido.
+  No corpo da requisição é necessário um JSON com a chave id do cookie que será deletado.
+
+Dessa forma, feita todas essas rotas consegui criar uma API Rest que possui os principais métodos HTTP e consegue executar todos os comandos básicos de um CRUD.
