@@ -14,13 +14,14 @@ export const databaseProviders = [
         password: process.env.PASSWORD, //'123456',
         database: 'postgres',
         dialectModule: pg, //Necessário para o deploy na Vercel
-        dialectOptions: { //Necessário para usar o servidor Postgre no Azure 
-            ssl: { 
-                require: true
-            }
-        }
+        dialectOptions: {
+          //Necessário para usar o servidor Postgre no Azure
+          ssl: {
+            require: true,
+          },
+        },
       });
-      sequelize.addModels([Cookies])
+      sequelize.addModels([Cookies]);
       await sequelize.sync();
 
       try {
@@ -29,8 +30,7 @@ export const databaseProviders = [
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
-      
-     
+
       return sequelize;
     },
   },
