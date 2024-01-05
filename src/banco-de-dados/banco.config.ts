@@ -8,18 +8,17 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: process.env.HOST, //'localhost',
+        host: 'localhost',
         port: 5432, // A porta padrão do PostgreSQL
-        username: process.env.USER, //'postgres',
-        password: process.env.PASSWORD, //'123456',
+        username: 'postgres',
+        password: '123456',
         database: 'postgres',
-        dialectModule: pg, //Necessário para o deploy na Vercel
-        dialectOptions: {
-          //Necessário para usar o servidor Postgre no Azure
+        //dialectModule: pg, //Necessário para o deploy na Vercel
+        /*dialectOptions: {
           ssl: {
-            require: true,
+            require: false, //Necessário para usar o servidor Postgre no Azure
           },
-        },
+        }*/
       });
       sequelize.addModels([Cookies]);
       await sequelize.sync();
